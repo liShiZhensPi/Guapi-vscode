@@ -10,16 +10,69 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld"
+		"*"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "Guapi",
+					"title": "Guapi",
+					"icon": "media/整理.svg"
+				}
+			]
+		},
+		"views": {
+			"Guapi": [
+				{
+					"id": "student",
+					"name": "学生面板"
+				},
+				{
+					"id": "class",
+					"name": "课程"
+				},
+				{
+					"id": "exam",
+					"name": "实验"
+				}
+			]
+		},
 		"commands": [
 			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
+				"command": "student.login",
+				"title": "登陆"
+			},
+			{
+				"command": "student.register",
+				"title": "注册"
+			},
+			{
+				"command": "student.logout",
+				"title": "退出"
+			},
+			{
+				"command": "extension.input",
+				"title": "input"
 			}
-		]
+		],
+		"menus": {
+			"view/title": [
+				{
+					"command": "student.login",
+					"when": "view == student"
+				},
+				{
+					"command": "student.register",
+					"when": "view == student"
+				},
+				{
+					"command": "student.logout",
+					"when": "view == student"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
@@ -38,5 +91,8 @@
 		"typescript": "^3.6.4",
 		"tslint": "^5.20.0",
 		"vscode-test": "^1.2.2"
+	},
+	"dependencies": {
+		"@types/request": "^2.48.4"
 	}
 }
