@@ -53,8 +53,12 @@
 				"title": "退出"
 			},
 			{
-				"command": "extension.input",
-				"title": "input"
+				"command": "class.join",
+				"title": "加入班级"
+			},
+			{
+				"command": "class.flush",
+				"title": "刷新"
 			}
 		],
 		"menus": {
@@ -70,6 +74,14 @@
 				{
 					"command": "student.logout",
 					"when": "view == student"
+				},
+				{
+					"command": "class.join",
+					"when": "view == class"
+				},
+				{
+					"command": "class.flush",
+					"when": "view == class"
 				}
 			]
 		}

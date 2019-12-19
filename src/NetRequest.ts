@@ -1,11 +1,14 @@
 import * as request from "request";
+import { studentId } from "./Student";
+import * as vscode from "vscode";
+
 
 
 export class NetRequest {
     public static async post(url: string, data: any | null): Promise<any | null> {
         var result: any | null = null;
 
-        console.log(JSON.stringify(data));
+        console.log(data);
 
         return new Promise(function (resolve, reject) {
             request({
@@ -16,7 +19,7 @@ export class NetRequest {
                     Accept: "*/*",
                     "content-type": "application/json;charset=UTF-8",
                 },
-                body: JSON.stringify(data)
+                body: data
             }, function (error, response, body) {
                 if (!error && response.statusCode === 200) {
 
@@ -26,6 +29,7 @@ export class NetRequest {
                     resolve(result);
 
                 } else {
+                    vscode.window.showErrorMessage("访问失败：" + response.statusCode);
                     resolve(result);
                     //vscode.window.showErrorMessage("login error " + response.statusCode);
                 }
@@ -39,12 +43,23 @@ export class NetRequest {
             "studentId": studentId,
             "password": password
         };
-        let result =  await NetRequest.post(url, requestData);
+        let result =  await NetRequest.post(url, JSON.stringify(requestData));
         if (result !== null&& result.result==="successful") {
             return Promise.resolve(result.name);
         } else {
             return Promise.resolve(null);
         }
 
+    }
+
+    public static async getClass() {
+        if (studentId === null) {
+            vscode.window.showInformationMessage("未登录,无法获得课程信息");
+            return;
+        }
+        var url = "http://localhost:8080/class/findClass";
+        var requestData = studentId;
+        let result = await NetRequest.post(url, requestData);
+        return Promise.resolve(result);
     }
 }

@@ -1,14 +1,16 @@
 import * as vscode from "vscode";
 import { NetRequest } from "./NetRequest";
+import { UserItem,UserProvider} from "./UserProvider";
+import { Class } from "./Class";
 
 export var studentId: string | null = null;
 export var studentName: string | null = null;
+export var userProvider = new UserProvider([]);
 
 export class Student{
 
     
-
-    public static login() {
+    public static async login() {
         if (studentId !== null) {
             vscode.window.showInformationMessage("已登陆，请先退出");
             return;
@@ -49,12 +51,15 @@ export class Student{
                 }
                 studentName = name;
                 vscode.window.showInformationMessage("欢迎登陆 " + name);
+                userProvider.data.push(new UserItem(studentName+"已登陆"));
+                vscode.window.registerTreeDataProvider('student', userProvider);
+                Class.flush();
 
             });
         });
     }
 
     public static logout() {
-        
+
     }
 }
