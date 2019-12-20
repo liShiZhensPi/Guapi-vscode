@@ -19,7 +19,7 @@
 				{
 					"id": "Guapi",
 					"title": "Guapi",
-					"icon": "media/整理.svg"
+					"icon": "media/faker-big.svg"
 				}
 			]
 		},
@@ -63,18 +63,6 @@
 		],
 		"menus": {
 			"view/title": [
-				{
-					"command": "student.login",
-					"when": "view == student"
-				},
-				{
-					"command": "student.register",
-					"when": "view == student"
-				},
-				{
-					"command": "student.logout",
-					"when": "view == student"
-				},
 				{
 					"command": "class.join",
 					"when": "view == class"

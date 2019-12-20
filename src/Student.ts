@@ -1,7 +1,9 @@
 import * as vscode from "vscode";
 import { NetRequest } from "./NetRequest";
 import { UserItem,UserProvider} from "./UserProvider";
-import { Class } from "./Class";
+import { Class, classProvider } from "./Class";
+import * as cp from "child_process";
+import { Command } from "./Command";
 
 export var studentId: string | null = null;
 export var studentName: string | null = null;
@@ -51,15 +53,33 @@ export class Student{
                 }
                 studentName = name;
                 vscode.window.showInformationMessage("欢迎登陆 " + name);
-                userProvider.data.push(new UserItem(studentName+"已登陆"));
+                userProvider.data[0] = new UserItem(studentName + "已登陆");
+                userProvider.data.push(new UserItem("退出"));
+                userProvider.data[2].command = new Command('logout', 'student.logout');
                 vscode.window.registerTreeDataProvider('student', userProvider);
                 Class.flush();
-
             });
         });
     }
 
     public static logout() {
+        if (studentId === null) {
+            vscode.window.showWarningMessage("尚未登陆");
+            return;
+        }
+        studentId = null;
+        userProvider.data = [];
+        userProvider.data.push(new UserItem("登陆"));
+	    userProvider.data.push(new UserItem("注册"));
+	    userProvider.data[0].command = new Command('login', 'student.login');
+	    userProvider.data[1].command = new Command('register', 'student.register');
+        classProvider.data = [];
+        vscode.window.registerTreeDataProvider('student', userProvider);
+        vscode.window.registerTreeDataProvider('class', classProvider);
+        vscode.window.showInformationMessage("退出成功");
+    }
 
+    public static register() {
+        cp.exec('start chrome http://127.0.0.1:8080/student/register');
     }
 }

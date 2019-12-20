@@ -1,4 +1,4 @@
-import { TreeDataProvider, TreeItem } from "vscode";
+import { TreeDataProvider, TreeItem, Command } from "vscode";
 
 export class ClassProvider implements TreeDataProvider<TreeItem>{
 

@@ -2,8 +2,7 @@ import { TreeDataProvider, TreeItem ,Event,ProviderResult, TreeItemCollapsibleSt
 
 export class UserProvider implements TreeDataProvider<UserItem>{
     //private _onDidChangeTreeData: EventEmitter<UserItem | undefined> = new EventEmitter<UserItem | undefined>();
-    readonly onDidChangedTreeDate: Event<UserItem | null | undefined> | undefined;
-
+    onDidChangedTreeDate: Event<UserItem | null | undefined> | undefined;
 
     // refresh() {
     //     this._onDidChangeTreeData.fire();
