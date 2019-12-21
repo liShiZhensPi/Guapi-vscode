@@ -6,6 +6,7 @@ import {Student,studentId,studentName, userProvider} from './Student';
 import { Class } from './Class';
 import { UserItem } from './UserProvider';
 import { Command } from './Command';
+import { Exam } from './Exam';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -26,17 +27,19 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('student.register', () => Student.register()));
 	context.subscriptions.push(vscode.commands.registerCommand('class.flush', () => Class.flush()));
 	context.subscriptions.push(vscode.commands.registerCommand('class.join', () => Class.join()));
+	context.subscriptions.push(vscode.commands.registerCommand('exam.flsuh', () => Exam.flush()));
+	context.subscriptions.push(vscode.commands.registerCommand('exam.start', offest => Exam.start(offest)));
 
 	userProvider.data.push(new UserItem("登陆"));
 	userProvider.data.push(new UserItem("注册"));
 
-	userProvider.data[0].command = new Command('login', 'student.login');
-	userProvider.data[1].command = new Command('register', 'student.register');
+	userProvider.data[0].command = new Command('login', 'student.login',undefined);
+	userProvider.data[1].command = new Command('register', 'student.register',undefined);
 
 	vscode.window.registerTreeDataProvider('student', userProvider);
-	var studentListener = function (event: any) {
-		vscode.window.registerTreeDataProvider('student', userProvider);
-	};
+	// var studentListener = function (event: any) {
+	// 	vscode.window.registerTreeDataProvider('student', userProvider);
+	// };
 	//事件
 	// if (userProvider.onDidChangedTreeDate !== undefined) {
 	// 	userProvider.onDidChangedTreeDate(studentListener);

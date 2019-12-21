@@ -2,6 +2,7 @@ import { ClassProvider } from "./ClassProvider";
 import * as vscode from "vscode";
 import { NetRequest } from "./NetRequest";
 import { studentId } from "./Student";
+import { Exam } from "./Exam";
 
 
 export var classProvider = new ClassProvider([]);
@@ -21,10 +22,10 @@ export class Class {
             classProvider.data.push(new vscode.TreeItem(_class.teacherName + " : " + _class.className));
         }
         vscode.window.registerTreeDataProvider('class', classProvider);
-        for (let data of classProvider.data) {
-            console.log(data.id);
-            console.log(data);
-        }
+        // for (let data of classProvider.data) {
+        //     console.log(data.id);
+        //     console.log(data);
+        // }
     }
 
     public static async join() {
@@ -54,7 +55,7 @@ export class Class {
 
             let result = await NetRequest.post(url, JSON.stringify(requestData));
 
-            console.log(result);
+            //console.log(result);
             if (result.id <0) {
                 vscode.window.showWarningMessage("加入失败，课程不存在");
                 return;
@@ -64,6 +65,7 @@ export class Class {
                     return;
                 }
                 Class.flush();
+                Exam.flush();
                 vscode.window.showInformationMessage("加入成功: " + result.classId);
             }
         });

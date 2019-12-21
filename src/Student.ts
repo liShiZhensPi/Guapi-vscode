@@ -4,6 +4,7 @@ import { UserItem,UserProvider} from "./UserProvider";
 import { Class, classProvider } from "./Class";
 import * as cp from "child_process";
 import { Command } from "./Command";
+import { Exam, examProvider } from "./Exam";
 
 export var studentId: string | null = null;
 export var studentName: string | null = null;
@@ -55,9 +56,10 @@ export class Student{
                 vscode.window.showInformationMessage("欢迎登陆 " + name);
                 userProvider.data[0] = new UserItem(studentName + "已登陆");
                 userProvider.data.push(new UserItem("退出"));
-                userProvider.data[2].command = new Command('logout', 'student.logout');
+                userProvider.data[2].command = new Command('logout', 'student.logout',undefined);
                 vscode.window.registerTreeDataProvider('student', userProvider);
                 Class.flush();
+                Exam.flush();
             });
         });
     }
@@ -71,11 +73,13 @@ export class Student{
         userProvider.data = [];
         userProvider.data.push(new UserItem("登陆"));
 	    userProvider.data.push(new UserItem("注册"));
-	    userProvider.data[0].command = new Command('login', 'student.login');
-	    userProvider.data[1].command = new Command('register', 'student.register');
-        classProvider.data = [];
+	    userProvider.data[0].command = new Command('login', 'student.login',undefined);
+        userProvider.data[1].command = new Command('register', 'student.register',undefined);
         vscode.window.registerTreeDataProvider('student', userProvider);
+        classProvider.data = [];
         vscode.window.registerTreeDataProvider('class', classProvider);
+        examProvider.data = [];
+        vscode.window.registerTreeDataProvider('exam', examProvider);
         vscode.window.showInformationMessage("退出成功");
     }
 

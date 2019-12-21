@@ -59,6 +59,15 @@
 			{
 				"command": "class.flush",
 				"title": "刷新"
+			},
+			{
+				"command":"exam.flush",
+				"title": "刷新"
+			},
+			{
+				"command": "exam.start",
+				"title": "开始",
+				"icon":"media/start.svg"
 			}
 		],
 		"menus": {
@@ -70,6 +79,17 @@
 				{
 					"command": "class.flush",
 					"when": "view == class"
+				},
+				{
+					"command": "exam.flush",
+					"when": "view == exam"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "exam.start",
+					"when": "view == exam && viewItem == start",
+					"group": "inline"
 				}
 			]
 		}

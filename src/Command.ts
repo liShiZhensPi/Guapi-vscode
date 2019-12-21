@@ -6,11 +6,11 @@ export class Command implements vscode.Command{
     tooltip: string | undefined;
     arguments: any[] | undefined;
 
-    constructor(title: string, command: string) {
+    constructor(title: string, command: string,arg: any[]|undefined) {
         this.title = title;
         this.command = command;
         // this.tooltip = tooltip;
-        // this.arguments = arg;
+        this.arguments = arg;
     }
 
     
