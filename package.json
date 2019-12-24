@@ -68,6 +68,11 @@
 				"command": "exam.start",
 				"title": "开始",
 				"icon":"media/start.svg"
+			},
+			{
+				"command": "exam.end",
+				"title": "结束实验",
+				"icon":"media/end.svg"
 			}
 		],
 		"menus": {
@@ -90,8 +95,29 @@
 					"command": "exam.start",
 					"when": "view == exam && viewItem == start",
 					"group": "inline"
+				},
+				{
+					"command": "exam.end",
+					"when": "view==exam && viewItem == isStarted",
+					"group": "inline"
 				}
 			]
+		},
+		"configuration":{
+			"title": "guapi configuration",
+			"properties": {
+				"guapi.ssh_key_pub":{
+					"type":["string","null"],
+					"default":null,
+					"description": "配置你的ssh公钥路径"
+				},
+				"guapi.ssh_key":{
+					"type":["string","null"],
+					"default":null,
+					"description": "配置你的ssh密钥路径"
+
+				}
+			}
 		}
 	},
 	"scripts": {

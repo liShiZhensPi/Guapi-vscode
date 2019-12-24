@@ -19,7 +19,9 @@ export class Class {
         var result = await NetRequest.getClass();
         classProvider.data = [];//清空
         for (let _class of result) {
-            classProvider.data.push(new vscode.TreeItem(_class.teacherName + " : " + _class.className));
+            var item = new vscode.TreeItem(_class.className);
+            item.tooltip = "课程："+_class.className+"\n老师："+_class.teacherName;
+            classProvider.data.push(item);
         }
         vscode.window.registerTreeDataProvider('class', classProvider);
         // for (let data of classProvider.data) {
@@ -47,7 +49,7 @@ export class Class {
             if (classId === undefined) {
                 return;
             }
-            let url = "http://localhost:8080/class/joinClass";
+            let url = "/class/joinClass";
             let requestData = {
                 "studentId": studentId,
                 "classId": parseInt(classId)

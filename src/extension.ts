@@ -29,6 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('class.join', () => Class.join()));
 	context.subscriptions.push(vscode.commands.registerCommand('exam.flsuh', () => Exam.flush()));
 	context.subscriptions.push(vscode.commands.registerCommand('exam.start', offest => Exam.start(offest)));
+	context.subscriptions.push(vscode.commands.registerCommand('exam.end', offest => Exam.end(offest)));
 
 	userProvider.data.push(new UserItem("登陆"));
 	userProvider.data.push(new UserItem("注册"));
